@@ -6,20 +6,17 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-git "/home/louise/cask" do
-  repository "https://github.com/cask/cask.git"
-  reference "master"
-
+execute "install cask" do
   user "louise"
   group "louise"
-end
+  environment "HOME" => "/home/louise"
 
-execute "cask" do
-  cwd "/home/louise"
+  cwd "/home/vagrant"
   command <<-EOH
-  mv cask .cask;
-  export PATH="/home/louise/.cask/bin:$PATH";
+  curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
   EOH
+
+  not_if { File.exists?("/home/vagrant/.cask") }
 end
 
 git "/home/louise/dotfiles" do
@@ -30,39 +27,17 @@ git "/home/louise/dotfiles" do
   group "louise"
 end
 
-# execute "dotfiles" do
-#   user "louise"
-#   group "louise"
+execute "dotfiles" do
+  user "louise"
+  group "louise"
 
-#   cwd "/home/louise/dotfiles"
-#   command <<-EOH
-#   if [ ! -e /home/louise/.emacs.d ]; then
-#     mkdir /home/louise/.emacs.d
-#   fi
-  
-#   cd /home/louise/dotfiles
+  environment "HOME" => "/home/louise"
+  environment "CASK_PATH" => "/home/louise/.cask/bin"
 
-#     currentdir=~/dotfiles
-
-#     if [ ! -e ./tmp ]; then
-#         mkdir ./tmp
-#     fi
-#     cd ./tmp
-
-#     ln -s $currentdir/init.el init.el
-#     mv init.el /home/louise/.emacs.d/
-
-#     ln -s $currentdir/Cask Cask
-#     mv Cask /home/louise/.emacs.d/Cask
-
-#     ln -s $currentdir/.zshrc .zshrc
-#     mv .zshrc /home/louise
-
-#     ln -s $currentdir/.tmux.conf .tmux.conf
-#     mv .tmux.conf /home/louise
-
-#   export PATH="/home/louise/.cask/bin:$PATH";
-#   cd /home/louise/.emacs.d
-#   cask
-#   EOH
-# end
+  cwd "/home/louise/dotfiles"
+  command <<-EOH
+  ./placefiles.sh
+  cd /home/louise/.emacs.d
+  cask
+  EOH
+end
