@@ -7,21 +7,21 @@
 # All rights reserved - Do Not Redistribute
 #
 
-git "/home/louise/dotfiles" do
+git "/home/#{node['user']}/dotfiles" do
   repository "https://github.com/miwara/dotfiles.git"
   reference "master"
 
-  user "louise"
-  group "louise"
+  user "#{node['user']}"
+  group "#{node['user']}"
 end
 
 execute "dotfiles" do
-  user "louise"
-  group "louise"
+  user "#{node['user']}"
+  group "#{node['user']}"
 
-  environment "HOME" => "/home/louise"
+  environment "HOME" => "/home/#{node['user']}"
 
-  cwd "/home/louise/dotfiles"
+  cwd "/home/#{node['user']}/dotfiles"
   command <<-EOH
   ./placefiles.sh
   EOH
