@@ -11,13 +11,13 @@ git "/home/#{node['user']}/dotfiles" do
   repository "https://github.com/miwara/dotfiles.git"
   reference "master"
 
-  user "#{node['user']}"
-  group "#{node['user']}"
+  user node['user']
+  group #{node['user']
 end
 
 execute "dotfiles" do
-  user "#{node['user']}"
-  group "#{node['user']}"
+  user node['user']
+  group node['user']
 
   environment "HOME" => "/home/#{node['user']}"
 
