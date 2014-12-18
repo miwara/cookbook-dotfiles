@@ -12,7 +12,7 @@ git "/home/#{node['user']}/dotfiles" do
   reference "master"
 
   user node['user']
-  group #{node['user']
+  group node['user']
 end
 
 execute "dotfiles" do
