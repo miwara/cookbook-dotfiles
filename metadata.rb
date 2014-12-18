@@ -1,1 +1,1 @@
-name             'dotfiles'
+name             'cookbook-dotfiles'
