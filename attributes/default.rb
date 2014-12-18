@@ -4,4 +4,4 @@
 #
 
 default["user"] = "vagrant"
-default["group"] = "100"
+default["group"] = "vagrant"
