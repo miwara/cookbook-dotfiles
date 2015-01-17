@@ -13,6 +13,8 @@ git "/home/#{node['user']}/dotfiles" do
 
   user node['user']
   group node['group']
+
+  notifies :run, "execute[dotfiles]", :immediately
 end
 
 execute "dotfiles" do
@@ -25,4 +27,6 @@ execute "dotfiles" do
   command <<-EOH
   ./placefiles.sh
   EOH
+
+  action :nothing
 end
