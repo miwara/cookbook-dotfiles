@@ -26,6 +26,8 @@ execute "dotfiles" do
   cwd "/home/#{node['user']}/dotfiles"
   command <<-EOH
   ./placefiles.sh
+  $HOME/.cask/bin/cask upgrade-cask
+  $HOME/.cask/bin/cask
   EOH
 
   action :nothing
