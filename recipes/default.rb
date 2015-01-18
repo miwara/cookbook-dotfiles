@@ -24,7 +24,7 @@ execute "dotfiles" do
   environment "HOME" => "/home/#{node['user']}"
 
   cwd "/home/#{node['user']}/dotfiles"
-  command "./placefiles.sh""
+  command "./placefiles.sh"
 
   cwd "/home/#{node['user']}/.emacs.d"
   command <<-EOH
