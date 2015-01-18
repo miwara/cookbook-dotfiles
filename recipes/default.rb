@@ -24,8 +24,10 @@ execute "dotfiles" do
   environment "HOME" => "/home/#{node['user']}"
 
   cwd "/home/#{node['user']}/dotfiles"
+  command "./placefiles.sh""
+
+  cwd "/home/#{node['user']}/.emacs.d"
   command <<-EOH
-  ./placefiles.sh
   $HOME/.cask/bin/cask upgrade-cask
   $HOME/.cask/bin/cask
   EOH
